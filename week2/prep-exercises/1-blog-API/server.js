@@ -38,16 +38,12 @@ app.delete('/blogs/:title', (req, res) => {
 });
 
 app.get('/blogs/:title', (req, res) => {
-  // How to get the title from the url parameters?
-  // check if post exists
   if (fs.existsSync(req.params.title)) {
     const post = fs.readFileSync(req.params.title);
     res.send(post);
   } else {
     res.status(404).send('error: no such blog exist');
   }
-
-  // send response
 });
 
 app.listen(3000);

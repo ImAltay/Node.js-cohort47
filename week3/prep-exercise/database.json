@@ -1,0 +1,9 @@
+{
+    "users": [
+        {
+            "username": "example_user",
+            "hashedPassword": "example_hashed_password",
+            "salt": "example_salt"
+        }
+    ]
+}

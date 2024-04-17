@@ -3,8 +3,6 @@ import bcrypt from 'bcrypt';
 import { v4 } from 'uuid';
 import jwt from 'jsonwebtoken';
 
-// export const register = async (req, res) => {};
-
 export const isValidUser = (newUser, res) => {
   if (!newUser.username) {
     return {
@@ -26,7 +24,6 @@ export const isValidUser = (newUser, res) => {
     return {
       isValid: false,
       result: () => {
-        console.log('run baby run');
         return res.status(400).send('password should be at least 6 char').end();
       },
     };
@@ -36,12 +33,10 @@ export const isValidUser = (newUser, res) => {
 };
 
 export const getDB = () => {
-  // json to object from database.json
   return JSON.parse(fs.readFileSync('./database.json'));
 };
 
 export const updateDB = (newDB) => {
-  // object to json to database.json
   fs.writeFileSync('./database.json', JSON.stringify(newDB));
 };
 
@@ -58,6 +53,13 @@ export const generateID = () => {
 };
 
 export const generateJWT = (User) => {
-  const secret = 'secret';
-  return jwt.sign({ id: User.id }, secret);
+  return jwt.sign({ id: User.id }, getSecret());
+};
+
+export const verifyJWT = (token) => {
+  return jwt.verify(token, getSecret());
+};
+
+const getSecret = () => {
+  return 'secret';
 };

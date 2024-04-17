@@ -7,13 +7,13 @@ import {
   generateID,
   comparePassword,
   generateJWT,
+  verifyJWT,
 } from './users.js';
 import fs from 'fs';
 
 let app = express();
 
 app.use(express.json());
-// Create routes here, e.g. app.post("/register", .......)
 
 app.post('/register', async (req, res) => {
   const newUser = {
@@ -44,12 +44,33 @@ app.post('/login', async (req, res) => {
   }
   if (await comparePassword(req.body.password, user.password)) {
     const userJWT = generateJWT(user);
-    //return jwt to client
-    res.set('Authorization', `Bearer ${userJWT}`);
+
+    res.set('Authorization', userJWT);
     return res.status(200).send('Successful login').end();
   } else {
     return res.status(401).send('WRONG PASSWORD').end();
   }
+});
+
+app.get('/user', (req, res) => {
+  const token = req.headers.authorization;
+  const db = getDB();
+  try {
+    const user = db.users.find((user) => user.id === verifyJWT(token).id);
+    if (user) {
+      return res.status(200).send(user).end();
+    }
+  } catch (err) {
+    return res.status(401).send('INVALID TOKEN').end();
+  }
+});
+
+app.post('/logout', (req, res) => {
+  // allow user to logout and invalidate? token
+  res.set('Authorization', '');
+  return res.status(204).send('Logged out').end();
+  // client should invalidate token?
+  // I don't think this should be enough in real life
 });
 
 app.listen(3000, () => {

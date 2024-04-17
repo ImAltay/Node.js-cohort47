@@ -1,1 +1,14 @@
-{"users":[{"id":"8f1df75c-27f8-45e9-8d7a-84cc359b1032","username":"John Doe","password":"$2b$12$/y2R6FebbKrpYgk5dw1FsenH9KON57sBOx9iES4P1Pp2IzWmzLfp6"},{"id":"dc08bbf1-e178-4b71-b8e4-c463eece8488","username":"angelica doe","password":"$2b$12$n/PLrphGqdKoPUZuM3MOQuDtF2e2xKZ6ZRX5WmnxBE5csFGzBGFnK"},{"id":"5d2f05ea-c6e8-44b4-8310-004166b980ad","username":"user4","password":"$2b$12$lkeOj80Yqgo1Oa8KL50RO.hAZwrXasC2HqMAZXtkp37YiC9/i.ZBi"}]}
+{
+  "users": [
+    {
+      "id": "8f1df75c-27f8-45e9-8d7a-84cc359b1032",
+      "username": "John Doe",
+      "password": "$2b$12$/y2R6FebbKrpYgk5dw1FsenH9KON57sBOx9iES4P1Pp2IzWmzLfp6"
+    },
+    {
+      "id": "dc08bbf1-e178-4b71-b8e4-c463eece8488",
+      "username": "angelica doe",
+      "password": "$2b$12$n/PLrphGqdKoPUZuM3MOQuDtF2e2xKZ6ZRX5WmnxBE5csFGzBGFnK"
+    }
+  ]
+}

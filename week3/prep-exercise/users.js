@@ -1,6 +1,7 @@
 import fs from 'fs';
 import bcrypt from 'bcrypt';
 import { v4 } from 'uuid';
+import jwt from 'jsonwebtoken';
 
 // export const register = async (req, res) => {};
 
@@ -9,7 +10,7 @@ export const isValidUser = (newUser, res) => {
     return {
       isValid: false,
       result: () => {
-        res.status(400).send('Username can not be empty').end();
+        return res.status(400).send('Username can not be empty').end();
       },
     };
   }
@@ -17,7 +18,7 @@ export const isValidUser = (newUser, res) => {
     return {
       isValid: false,
       result: () => {
-        res.status(400).send('password can not be empty').end();
+        return res.status(400).send('password can not be empty').end();
       },
     };
   }
@@ -25,7 +26,8 @@ export const isValidUser = (newUser, res) => {
     return {
       isValid: false,
       result: () => {
-        res.status(400).send('password should be at least 6 char').end();
+        console.log('run baby run');
+        return res.status(400).send('password should be at least 6 char').end();
       },
     };
   }
@@ -53,4 +55,9 @@ export const comparePassword = async (password, hash) => {
 
 export const generateID = () => {
   return v4();
+};
+
+export const generateJWT = (User) => {
+  const secret = 'secret';
+  return jwt.sign({ id: User.id }, secret);
 };

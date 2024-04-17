@@ -6,6 +6,7 @@ import {
   hashPassword,
   generateID,
   comparePassword,
+  generateJWT,
 } from './users.js';
 import fs from 'fs';
 
@@ -18,12 +19,12 @@ app.post('/register', async (req, res) => {
   const newUser = {
     id: generateID(),
     username: req.body.username,
-    password: await hashPassword(req.body.password),
+    password: req.body.password,
   };
   if (!isValidUser(newUser).isValid) {
     isValidUser(newUser, res).result();
   }
-
+  newUser.password = await hashPassword(req.body.password);
   const db = getDB();
   db.users.push(newUser);
   updateDB(db);
@@ -42,6 +43,9 @@ app.post('/login', async (req, res) => {
     return res.status(404).send('USER NOT FOUND').end();
   }
   if (await comparePassword(req.body.password, user.password)) {
+    const userJWT = generateJWT(user);
+    //return jwt to client
+    res.set('Authorization', `Bearer ${userJWT}`);
     return res.status(200).send('Successful login').end();
   } else {
     return res.status(401).send('WRONG PASSWORD').end();

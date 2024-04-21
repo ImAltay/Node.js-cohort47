@@ -4,9 +4,6 @@ import supertest from 'supertest';
 const request = supertest(app);
 
 describe('POST /', () => {
-  it('Quick test', () => {
-    expect(1).toBe(1);
-  });
   it('Should return a 200 status', async () => {
     const response = await request.get('/');
     expect(response.status).toBe(200);

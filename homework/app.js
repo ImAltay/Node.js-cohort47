@@ -9,7 +9,7 @@ app.get('/', (req, res) => {
   res.send('hello from backend to frontend!');
 });
 
-app.post('/weather/:cityName', (req, res) => {
+app.get('/weather/:cityName', (req, res) => {
   const cityName = req.params.cityName;
   fetch(
     `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${KEYS.API_KEY}`
@@ -17,8 +17,6 @@ app.post('/weather/:cityName', (req, res) => {
     .then((response) => response.json())
     .then((response) => {
       if (response.name === undefined) {
-        // nodemon warning: Deprecated
-        // res.json(404, { weatherText: 'City not found!' });
         res.status(404).json({ weatherText: 'City not found!' });
       } else {
         return res.json({

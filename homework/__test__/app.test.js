@@ -14,7 +14,7 @@ describe('POST /', () => {
   });
 });
 
-describe('POST /weather/:cityName', () => {
+describe('get /weather/:cityName', () => {
   it('Should return a 200 status', async () => {
     const response = await request.get('/weather/London');
     expect(response.status).toBe(200);
